@@ -1,0 +1,20 @@
+param (
+	[Parameter( Mandatory=$true)]
+	[string]$initialDirectory
+)
+#Script to get filename and path from prompt
+Function GetReport()
+{
+    param($initialDirectory)
+
+    [System.Reflection.Assembly]::LoadWithPartialName("System.windows.forms") | Out-Null
+    $OpenFileDialog = New-Object System.Windows.Forms.OpenFileDialog
+    $OpenFileDialog.Title="Org: Select Report to Analyze"
+    $OpenFileDialog.initialDirectory = $initialDirectory
+    $OpenFileDialog.filter = "Excel (*.xlsx)| *.xlsx"
+    $OpenFileDialog.ShowDialog() | Out-Null
+    $OpenFileDialog.filename
+    
+}
+
+GetReport $initialDirectory
